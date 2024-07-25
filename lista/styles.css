@@ -37,7 +37,7 @@ body {
     margin-bottom: 10px;
 }
 
-.todo-list li input[type="checkbox"] {
+.todo-list li input[type="marcador"] {
     margin-right: 10px;
 }
 

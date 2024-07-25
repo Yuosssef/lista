@@ -10,20 +10,16 @@ function addItem() {
 
     const listItem = document.createElement('li');
 
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.onchange = toggleItem;
+    const marcador = document.createElement('input');
+    marcador.type = 'checkbox';
+    marcador.onchange = toggleItem;
 
     const span = document.createElement('span');
     span.textContent = newItemText;
+    span.onclick = deleteItem;
 
-    const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'x';
-    deleteButton.onclick = deleteItem;
-
-    listItem.appendChild(checkbox);
+    listItem.appendChild(marcador);
     listItem.appendChild(span);
-    listItem.appendChild(deleteButton);
 
     list.appendChild(listItem);
     newItemInput.value = '';
@@ -36,7 +32,7 @@ function toggleItem(event) {
 }
 
 function deleteItem(event) {
-    const deleteButton = event.target;
-    const listItem = deleteButton.parentElement;
+    const span = event.target;
+    const listItem = span.parentElement;
     listItem.remove();
 }
