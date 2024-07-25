@@ -1,38 +1,36 @@
-function addItem() {
-    const list = document.getElementById('list');
+document.addEventListener('DOMContentLoaded', function () {
+    const addItemButton = document.querySelector('.input-container button');
     const newItemInput = document.getElementById('new-item');
-    const newItemText = newItemInput.value;
+    const todoList = document.getElementById('list');
 
-    if (newItemText === '') {
-        alert('Please enter a list item.');
-        return;
+    addItemButton.addEventListener('click', addItem);
+
+    newItemInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            addItem();
+        }
+    });
+
+    function addItem() {
+        const itemText = newItemInput.value.trim();
+        if (itemText !== '') {
+            const li = document.createElement('li');
+
+            const span = document.createElement('span');
+            span.textContent = itemText;
+
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'X';
+            removeButton.className = 'remove-btn';
+            removeButton.addEventListener('click', function () {
+                todoList.removeChild(li);
+            });
+
+            li.appendChild(span);
+            li.appendChild(removeButton);
+            todoList.appendChild(li);
+
+            newItemInput.value = '';
+        }
     }
-
-    const listItem = document.createElement('li');
-
-    const marcador = document.createElement('input');
-    marcador.type = 'checkbox';
-    marcador.onchange = toggleItem;
-
-    const span = document.createElement('span');
-    span.textContent = newItemText;
-    span.onclick = deleteItem;
-
-    listItem.appendChild(marcador);
-    listItem.appendChild(span);
-
-    list.appendChild(listItem);
-    newItemInput.value = '';
-}
-
-function toggleItem(event) {
-    const checkbox = event.target;
-    const listItem = checkbox.parentElement;
-    listItem.style.textDecoration = checkbox.checked ? 'line-through' : 'none';
-}
-
-function deleteItem(event) {
-    const span = event.target;
-    const listItem = span.parentElement;
-    listItem.remove();
-}
+});
